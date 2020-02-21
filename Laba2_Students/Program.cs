@@ -10,6 +10,19 @@ namespace Laba2_Students
         {
             string directory = Directory.GetCurrentDirectory() + $"\\{Console.ReadLine()}\\";
             string[] filePaths = Directory.GetFiles(directory, "*.csv");
+            List<Students> students = new List<Students>();
+            int count = 0;
+            foreach (string path in filePaths)
+            {
+                StreamReader sr = new StreamReader(path);
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    students.Add(new Students() { name = line });
+                    count++;
+                }
+            }
+
         }
     }
 }
