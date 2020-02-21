@@ -40,6 +40,16 @@ namespace Laba2_Students
                 }
             }
 
+            Students temp_average = new Students();
+            for(int i = 0; i < students.Count - 1; i++)
+                for (int j = 0; j < students.Count - i - 1; j++)
+                    if (students[j + 1].average < students[j].average)
+                    {
+                        temp_average = students[j + 1];
+                        students[j + 1] = students[j];
+                        students[j] = temp_average;
+                    }
+            
         }
     }
 }
