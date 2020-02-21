@@ -22,7 +22,7 @@ namespace Laba2_Students
                 while (count != n)
                 {
                     line = sr.ReadLine();
-                    students.Add(new Students() { name = line });
+                    students.Add(new Students() {name = line});
                     string[] temp = students[students.Count - 1].name.Split(',');
                     if (temp[6] == "TRUE")
                     {
@@ -30,26 +30,34 @@ namespace Laba2_Students
                         n--;
                         continue;
                     }
+
                     students[students.Count - 1].name = temp[0];
                     for (int i = 1; i < 6; i++)
                         students[students.Count - 1].grade[i - 1] = Convert.ToInt32(temp[i]);
 
-                    students[students.Count - 1].average = students[students.Count - 1].AverageCount(students[students.Count - 1].grade);
-                    
+                    students[students.Count - 1].average =
+                        students[students.Count - 1].AverageCount(students[students.Count - 1].grade);
+
                     count++;
                 }
             }
 
             Students temp_average = new Students();
-            for(int i = 0; i < students.Count - 1; i++)
-                for (int j = 0; j < students.Count - i - 1; j++)
-                    if (students[j + 1].average < students[j].average)
-                    {
-                        temp_average = students[j + 1];
-                        students[j + 1] = students[j];
-                        students[j] = temp_average;
-                    }
-            
+            for (int i = 0; i < students.Count - 1; i++)
+            for (int j = 0; j < students.Count - i - 1; j++)
+                if (students[j + 1].average > students[j].average)
+                {
+                    temp_average = students[j + 1];
+                    students[j + 1] = students[j];
+                    students[j] = temp_average;
+                }
+
+            using (StreamWriter sw = new StreamWriter("rating.csv", false, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < students.Count * 0.4; i++)
+                    sw.WriteLine($"{students[i].name}: {students[i].average}");
+                sw.Write($"Минимальный проходной балл - {students[Convert.ToInt32(students.Count * 0.4)].average}");
+            }
         }
     }
 }
