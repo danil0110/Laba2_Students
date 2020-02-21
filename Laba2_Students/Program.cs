@@ -9,6 +9,8 @@ namespace Laba2_Students
         public static void Main(string[] args)
         {
             string directory = Directory.GetCurrentDirectory() + $"\\{Console.ReadLine()}\\";
+            if (File.Exists(directory + "rating.csv"))
+                File.Delete(directory + "rating.csv");
             string[] filePaths = Directory.GetFiles(directory, "*.csv");
             List<Students> students = new List<Students>();
 
@@ -52,11 +54,11 @@ namespace Laba2_Students
                     students[j] = temp_average;
                 }
 
-            using (StreamWriter sw = new StreamWriter("rating.csv", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(directory + "rating.csv", false, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < students.Count * 0.4; i++)
                     sw.WriteLine($"{students[i].name}: {students[i].average}");
-                sw.Write($"Минимальный проходной балл - {students[Convert.ToInt32(students.Count * 0.4)].average}");
+                sw.Write($"\nМинимальный проходной балл - {students[Convert.ToInt32(students.Count * 0.4)].average}");
             }
         }
     }
