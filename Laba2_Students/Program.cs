@@ -11,12 +11,7 @@ namespace Laba2_Students
             string directory = GetDirectory();
             string[] filePaths = GetFilePaths(directory);
             List<Students> students = GetListStudents(filePaths);
-                    //students[students.Count - 1].average =
-                    //    students[students.Count - 1].AverageCount(students[students.Count - 1].grade);
-
-                    //count++;
-                
-            
+            AverageMark(ref students);
 
             Students temp_average = new Students();
             for (int i = 0; i < students.Count - 1; i++)
@@ -73,6 +68,7 @@ namespace Laba2_Students
                         n--;
                         continue;
                     }
+
                     students[students.Count - 1].name = temp[0];
                     for (int i = 1; i < 6; i++)
                         students[students.Count - 1].grade[i - 1] = Convert.ToInt32(temp[i]);
@@ -81,7 +77,12 @@ namespace Laba2_Students
             }
 
             return students;
-        } 
+        }
 
+        public static void AverageMark(ref List<Students> students)
+        {
+            for (int i = 0; i < students.Count; i++)
+                students[i].average = students[i].AverageCount(students[i].grade);
+        }
     }
 }
