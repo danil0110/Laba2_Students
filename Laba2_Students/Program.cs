@@ -16,6 +16,9 @@ namespace Laba2_Students
             OutputRating(directory, students);
         }
 
+        // ========== Функции ==========
+        
+        // ========== Ввод директории ==========
         public static string GetDirectory()
         {
             Console.Write("Введите название директории: ");
@@ -25,12 +28,14 @@ namespace Laba2_Students
             return directory;
         }
 
+        // ========== Чтение всех ".csv" файлов ==========
         public static string[] GetFilePaths(string directory)
         {
             string[] filePaths = Directory.GetFiles(directory, "*.csv");
             return filePaths;
         }
 
+        // ========== Получение списка всех бюджетников ==========
         public static List<Students> GetListStudents(string[] filePaths)
         {
             List<Students> students = new List<Students>();
@@ -64,12 +69,14 @@ namespace Laba2_Students
             return students;
         }
 
+        // ========== Подсчет среднего балла ==========
         public static void AverageMark(List<Students> students)
         {
             for (int i = 0; i < students.Count; i++)
                 students[i].average = students[i].AverageCount(students[i].grade);
         }
 
+        // ========== Сортировка по среднему баллу ==========
         public static void SortByAverage(List<Students> students)
         {
             Students temp_average = new Students();
@@ -83,6 +90,7 @@ namespace Laba2_Students
                 }
         }
 
+        // ========== Вывод в "rating.csv" файл ==========
         public static void OutputRating(string directory, List<Students> students)
         {
             double n = students.Count * 0.4;
