@@ -11,18 +11,10 @@ namespace Laba2_Students
             string directory = GetDirectory();
             string[] filePaths = GetFilePaths(directory);
             List<Students> students = GetListStudents(filePaths);
-            AverageMark(ref students);
-
-            Students temp_average = new Students();
-            for (int i = 0; i < students.Count - 1; i++)
-            for (int j = 0; j < students.Count - i - 1; j++)
-                if (students[j + 1].average > students[j].average)
-                {
-                    temp_average = students[j + 1];
-                    students[j + 1] = students[j];
-                    students[j] = temp_average;
-                }
-
+            AverageMark(students);
+            SortByAverage(students);
+            
+            
             using (StreamWriter sw = new StreamWriter(directory + "rating.csv", false, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < students.Count * 0.4; i++)
@@ -79,10 +71,23 @@ namespace Laba2_Students
             return students;
         }
 
-        public static void AverageMark(ref List<Students> students)
+        public static void AverageMark(List<Students> students)
         {
             for (int i = 0; i < students.Count; i++)
                 students[i].average = students[i].AverageCount(students[i].grade);
+        }
+
+        public static void SortByAverage(List<Students> students)
+        {
+            Students temp_average = new Students();
+            for (int i = 0; i < students.Count - 1; i++)
+            for (int j = 0; j < students.Count - i - 1; j++)
+                if (students[j + 1].average > students[j].average)
+                {
+                    temp_average = students[j + 1];
+                    students[j + 1] = students[j];
+                    students[j] = temp_average;
+                }
         }
     }
 }
