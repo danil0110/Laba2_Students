@@ -10,37 +10,13 @@ namespace Laba2_Students
         {
             string directory = GetDirectory();
             string[] filePaths = GetFilePaths(directory);
-            List<Students> students = new List<Students>();
+            List<Students> students = GetListStudents(filePaths);
+                    //students[students.Count - 1].average =
+                    //    students[students.Count - 1].AverageCount(students[students.Count - 1].grade);
 
-            foreach (string path in filePaths)
-            {
-                StreamReader sr = new StreamReader(path);
-                int n = Convert.ToInt32(sr.ReadLine()),
-                    count = 0;
-                string line;
-
-                while (count != n)
-                {
-                    line = sr.ReadLine();
-                    students.Add(new Students() {name = line});
-                    string[] temp = students[students.Count - 1].name.Split(',');
-                    if (temp[6] == "TRUE")
-                    {
-                        students.RemoveAt(students.Count - 1);
-                        n--;
-                        continue;
-                    }
-
-                    students[students.Count - 1].name = temp[0];
-                    for (int i = 1; i < 6; i++)
-                        students[students.Count - 1].grade[i - 1] = Convert.ToInt32(temp[i]);
-
-                    students[students.Count - 1].average =
-                        students[students.Count - 1].AverageCount(students[students.Count - 1].grade);
-
-                    count++;
-                }
-            }
+                    //count++;
+                
+            
 
             Students temp_average = new Students();
             for (int i = 0; i < students.Count - 1; i++)
@@ -74,6 +50,38 @@ namespace Laba2_Students
             string[] filePaths = Directory.GetFiles(directory, "*.csv");
             return filePaths;
         }
+
+        public static List<Students> GetListStudents(string[] filePaths)
+        {
+            List<Students> students = new List<Students>();
+
+            foreach (string path in filePaths)
+            {
+                StreamReader sr = new StreamReader(path);
+                int n = Convert.ToInt32(sr.ReadLine()),
+                    count = 0;
+                string line;
+
+                while (count != n)
+                {
+                    line = sr.ReadLine();
+                    students.Add(new Students() {name = line});
+                    string[] temp = students[students.Count - 1].name.Split(',');
+                    if (temp[6] == "TRUE")
+                    {
+                        students.RemoveAt(students.Count - 1);
+                        n--;
+                        continue;
+                    }
+                    students[students.Count - 1].name = temp[0];
+                    for (int i = 1; i < 6; i++)
+                        students[students.Count - 1].grade[i - 1] = Convert.ToInt32(temp[i]);
+                    count++;
+                }
+            }
+
+            return students;
+        } 
 
     }
 }
