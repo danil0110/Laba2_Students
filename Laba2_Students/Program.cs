@@ -8,9 +8,7 @@ namespace Laba2_Students
     {
         public static void Main(string[] args)
         {
-            string directory = Directory.GetCurrentDirectory() + $"\\{Console.ReadLine()}\\";
-            if (File.Exists(directory + "rating.csv"))
-                File.Delete(directory + "rating.csv");
+            string directory = GetDirectory();
             string[] filePaths = Directory.GetFiles(directory, "*.csv");
             List<Students> students = new List<Students>();
 
@@ -61,5 +59,15 @@ namespace Laba2_Students
                 sw.Write($"\nМинимальный проходной балл - {students[Convert.ToInt32(students.Count * 0.4)].average}");
             }
         }
+
+        public static string GetDirectory()
+        {
+            Console.Write("Введите название директории: ");
+            string directory = Directory.GetCurrentDirectory() + $"\\{Console.ReadLine()}\\";
+            if (File.Exists(directory + "rating.csv"))
+                File.Delete(directory + "rating.csv");
+            return directory;
+        }
+
     }
 }
