@@ -9,7 +9,7 @@ namespace Laba2_Students
         public static void Main(string[] args)
         {
             string directory = GetDirectory();
-            string[] filePaths = Directory.GetFiles(directory, "*.csv");
+            string[] filePaths = GetFilePaths(directory);
             List<Students> students = new List<Students>();
 
             foreach (string path in filePaths)
@@ -67,6 +67,12 @@ namespace Laba2_Students
             if (File.Exists(directory + "rating.csv"))
                 File.Delete(directory + "rating.csv");
             return directory;
+        }
+
+        public static string[] GetFilePaths(string directory)
+        {
+            string[] filePaths = Directory.GetFiles(directory, "*.csv");
+            return filePaths;
         }
 
     }
