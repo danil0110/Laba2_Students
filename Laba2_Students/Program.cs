@@ -13,14 +13,7 @@ namespace Laba2_Students
             List<Students> students = GetListStudents(filePaths);
             AverageMark(students);
             SortByAverage(students);
-            
-            
-            using (StreamWriter sw = new StreamWriter(directory + "rating.csv", false, System.Text.Encoding.Default))
-            {
-                for (int i = 0; i < students.Count * 0.4; i++)
-                    sw.WriteLine($"{students[i].name}: {students[i].average}");
-                sw.Write($"\nМинимальный проходной балл - {students[Convert.ToInt32(students.Count * 0.4)].average}");
-            }
+            OutputRating(directory, students);
         }
 
         public static string GetDirectory()
@@ -88,6 +81,17 @@ namespace Laba2_Students
                     students[j + 1] = students[j];
                     students[j] = temp_average;
                 }
+        }
+
+        public static void OutputRating(string directory, List<Students> students)
+        {
+            double n = students.Count * 0.4;
+            using (StreamWriter sw = new StreamWriter(directory + "rating.csv", false, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < n; i++)
+                    sw.WriteLine($"{students[i].name}: {students[i].average}");
+                sw.Write($"\nМинимальный проходной балл - {students[Convert.ToInt32(n)].average}");
+            }
         }
     }
 }
